@@ -1,0 +1,5 @@
+<pre class="highlight shell"><code>{% highlight 'bash' %}# Load the schema document
+$ coreapi get {{ schema_url }}{% if schema_format %} --format {{ schema_format }}{% endif %}
+
+# Interact with the API endpoint
+$ coreapi action {{ section_key }} {{ link_key }}{% for field in link.fields %} {{ field.name }}=...{% endfor %}{% endhighlight %}</code></pre>

@@ -1,0 +1,16 @@
+<pre class="highlight javascript"><code>{% highlight 'javascript' %}var coreapi = window.coreapi
+
+// Initialize a client & load the schema document
+var auth = new coreapi.BasicAuth(username='xxx', password='xxx')
+var client = new coreapi.Client(auth=auth)
+var document = null
+client.get("{{ schema_url }}").then(function(result) {
+    document = result
+})
+
+// Interact with the API endpoint
+var action = ["{{ section_key }}", "{{ link_key }}"]
+var params = {id: 123}
+client.action(document, action, params=params).then(function(result) {
+    // Return value is in 'result'
+}){% endhighlight %}</code></pre>

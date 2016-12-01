@@ -40,7 +40,7 @@ def get_package_data(package):
     return {package: filepaths}
 
 
-version = get_version('coreapi_docs')
+version = get_version('coredocs')
 
 
 if sys.argv[-1] == 'publish':
@@ -52,15 +52,15 @@ if sys.argv[-1] == 'publish':
 
 
 setup(
-    name='coreapi-docs',
+    name='coredocs',
     version=version,
-    url='http://github.com/core-api/coreapi-docs/',
+    url='http://github.com/core-api/coredocs/',
     license='BSD',
     description='API documentation generator.',
     author='Tom Christie',
     author_email='tom@tomchristie.com',
-    packages=get_packages('coreapi_docs'),
-    package_data=get_package_data('coreapi_docs'),
+    packages=get_packages('coredocs'),
+    package_data=get_package_data('coredocs'),
     install_requires=[
         'coreapi>=2.0.0',
         'click>=6.0',
@@ -75,7 +75,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'coredocs=coreapi_docs.main:client'
+            'coredocs=coredocs.main:client'
         ],
     },
 )

@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+    <link href="{{ static('slate/stylesheets/screen.css') }}" rel="stylesheet" media="screen" />
+    <link href="{{ static('slate/stylesheets/print.css') }}" rel="stylesheet" media="print" />
+    <script src="{{ static('slate/javascripts/all.js') }}"></script>
+    <style>{{ code_style }}</style>
+  </head>
+
+  <body class="index" data-languages="[{% for lang in langs -%}
+                                       &quot;{{ lang }}&quot;{% if not loop.last %},{% endif %}
+                                       {%- endfor %}]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="{{ static('slate/images/navbar.png') }}" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+        {% if langs %}
+        <div class="lang-selector">
+            {% for lang in langs %}
+              <a href="#" data-language-name="{{ lang }}">{{ lang }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+      <div id="toc">
+      </div>
+    </div>
+    <div class="page-wrapper">
+      {% if langs %}
+      <div class="dark-box"></div>
+      {% endif %}
+      <div class="content">
+          {% include "coreapi/document.html" %}
+      </div>
+      {% if langs %}
+      <div class="dark-box">
+          <div class="lang-selector">
+              {% for lang in langs %}
+                <a href="#" data-language-name="{{ lang }}">{{ lang }}</a>
+              {% endfor %}
+          </div>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
