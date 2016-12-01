@@ -64,7 +64,9 @@ setup(
     install_requires=[
         'coreapi>=2.0.0',
         'click>=6.0',
-        'jinja2>=2.8'
+        'jinja2>=2.8',
+        'Markdown>=2.6.0',
+        'Pygments>=2.1.0'
     ],
     classifiers=[
         'Intended Audience :: Developers',
