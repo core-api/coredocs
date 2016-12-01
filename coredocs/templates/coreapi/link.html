@@ -11,16 +11,72 @@
     <code>{{ link.action|upper }} {{ link.url }}</code>
 </p>
 
-{% if link.fields %}
-<h3>Parameters</h3>
-<table>
-    <thead>
-        <tr><th>Parameter</th><th>Location</th><th>Description</th></tr>
-    </thead>
-    <tbody>
-        {% for field in link.fields %}
-        <tr><td>{{ field.name }}</td><td>{{ field.location }}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% if get_fields('path', link ) %}
+    <h3>Path Parameters</h3>
+    <p>The following parameters should be included in the URL path.</p>
+    <table class="parameters">
+        <thead>
+            <tr><th>Parameter</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            {% for field in get_fields('path', link ) %}
+            <tr><td><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% if get_fields('query', link ) %}
+    <h3>Query Parameters</h3>
+    <p>The following parameters should be included as part of a URL query string.</p>
+    <table class="parameters">
+        <thead>
+            <tr><th>Parameter</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            {% for field in get_fields('query', link ) %}
+            <tr><td><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% if get_fields('header', link ) %}
+    <h3>Header Parameters</h3>
+    <p>The following parameters should be included as HTTP headers.</p>
+    <table class="parameters">
+        <thead>
+            <tr><th>Parameter</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            {% for field in get_fields('header', link ) %}
+            <tr><td><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% if get_fields('body', link ) %}
+    <h3>Request Body</h3>
+    <p>The request body should be <code>"{{ link.encoding }}"</code> encoded, and should contain a single item.</p>
+    <table class="parameters">
+        <thead>
+            <tr><th>Parameter</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            {% for field in get_fields('body', link ) %}
+            <tr><td><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% elif get_fields('form', link ) %}
+    <h3>Request Body</h3>
+    <p>The request body should be a <code>"{{ link.encoding }}"</code> encoded object, containing the following&nbsp;items.</p>
+    <table class="parameters">
+        <thead>
+            <tr><th>Parameter</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            {% for field in get_fields('form', link ) %}
+            <tr><td><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endif %}

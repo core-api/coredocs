@@ -17,6 +17,10 @@ PYGMENTS_STYLES = get_all_styles()
 DEFAULT_LANGS = ['shell', 'python']
 
 
+def get_fields(location, link):
+    return [field for field in link.fields if field.location == location]
+
+
 def render(doc, highlight=None, langs=None, static=None):
     if static is None:
         static = lambda path: path
@@ -37,6 +41,7 @@ def render(doc, highlight=None, langs=None, static=None):
         document=doc,
         get_sections=get_sections,
         get_links=get_links,
+        get_fields=get_fields,
         code_style=get_highlight_css(highlight),
         schema_url=doc.url,
         langs=langs,
