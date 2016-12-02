@@ -20,7 +20,7 @@
         </thead>
         <tbody>
             {% for field in get_fields('path', link ) %}
-            <tr><td><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            <tr><td class="parameter-name"><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
             {% endfor %}
         </tbody>
     </table>
@@ -34,7 +34,7 @@
         </thead>
         <tbody>
             {% for field in get_fields('query', link ) %}
-            <tr><td><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            <tr><td class="parameter-name"><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
             {% endfor %}
         </tbody>
     </table>
@@ -48,7 +48,7 @@
         </thead>
         <tbody>
             {% for field in get_fields('header', link ) %}
-            <tr><td><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            <tr><td class="parameter-name"><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
             {% endfor %}
         </tbody>
     </table>
@@ -62,7 +62,7 @@
         </thead>
         <tbody>
             {% for field in get_fields('body', link ) %}
-            <tr><td><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            <tr><td class="parameter-name"><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
             {% endfor %}
         </tbody>
     </table>
@@ -75,7 +75,7 @@
         </thead>
         <tbody>
             {% for field in get_fields('form', link ) %}
-            <tr><td><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            <tr><td class="parameter-name"><code>{{ field.name }}</code>{% if field.required %} <strong>required</strong>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
             {% endfor %}
         </tbody>
     </table>

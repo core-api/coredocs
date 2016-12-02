@@ -8,7 +8,7 @@ client.get("{{ schema_url }}").then(function(result) {
 })
 
 // Interact with the API endpoint
-var action = ["{{ section_key }}", "{{ link_key }}"]
+var action = [{% if section_key %}"{{ section_key }}", {% endif %}"{{ link_key }}"]
 {% if link.fields %}var params = {
 {% for field in link.fields %}    {{ field.name }}: ...{% if not loop.last %},{% endif %}
 {% endfor %}}
