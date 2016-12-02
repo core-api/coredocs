@@ -17,7 +17,7 @@ The following will build API documentation for the Swagger "PetStore" example AP
 
 ![Swagger Screenshot](screenshots/swagger.png)
 
-8[Preview the generated documentation.](https://core-api.github.io/coredocs/build/swagger/)*
+<p align="center"><em><a href="https://core-api.github.io/coredocs/build/swagger/">Preview the generated documentation.</a></em></p>
 
 ## RAML example
 
@@ -29,7 +29,7 @@ The following will build API documentation for the Spotify API, based on their R
 
 ![RAML Screenshot](screenshots/raml.png)
 
-*[Preview the generated documentation.](https://core-api.github.io/coredocs/build/raml/)*
+<p align="center"><em><a href="https://core-api.github.io/coredocs/build/raml/">Preview the generated documentation.</a></em></p>
 
 [swagger]: http://swagger.io/
 [raml]: http://raml.org/
