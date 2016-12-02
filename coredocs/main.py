@@ -14,7 +14,7 @@ import pkg_resources
 
 THEME_CHOICES = ['slate']
 PYGMENTS_STYLES = get_all_styles()
-DEFAULT_LANGS = ['shell', 'python']
+DEFAULT_LANGS = ['shell', 'javascript', 'python']
 
 
 def get_fields(location, link):

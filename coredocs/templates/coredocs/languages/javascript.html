@@ -1,8 +1,7 @@
 <pre class="highlight javascript"><code>{% highlight 'javascript' %}var coreapi = window.coreapi
 
 // Initialize a client & load the schema document
-var auth = new coreapi.BasicAuth(username='xxx', password='xxx')
-var client = new coreapi.Client(auth=auth)
+var client = new coreapi.Client()
 var document = null
 client.get("{{ schema_url }}").then(function(result) {
     document = result
@@ -10,7 +9,9 @@ client.get("{{ schema_url }}").then(function(result) {
 
 // Interact with the API endpoint
 var action = ["{{ section_key }}", "{{ link_key }}"]
-var params = {id: 123}
-client.action(document, action, params=params).then(function(result) {
+{% if link.fields %}var params = {
+{% for field in link.fields %}    {{ field.name }}: ...{% if not loop.last %},{% endif %}
+{% endfor %}}
+{% endif %}client.action(document, action, params=params).then(function(result) {
     // Return value is in 'result'
 }){% endhighlight %}</code></pre>
