@@ -30,11 +30,17 @@ def render(doc, highlight=None, langs=None, static=None):
 
     schema_format = determine_format(doc)
 
+    base_templates = os.path.join(['themes', 'base', 'templates'])
+    theme_templates = os.path.join(['themes', 'slate', 'templates'])
+
     env = jinja2.Environment(
-        loader=jinja2.PackageLoader('coredocs', 'templates'),
+        loader=jinja2.ChoiceLoader([
+            jinja2.PackageLoader('coredocs', base_templates),
+            jinja2.PackageLoader('coredocs', theme_templates)
+        ]),
         extensions=['coredocs.highlighting.HighlightExtension']
     )
-    template = env.get_template('slate/index.html')
+    template = env.get_template('index.html')
     return template.render(
         static=static,
         render_markdown=render_markdown,
@@ -130,7 +136,7 @@ def build(url, format, theme, highlight, languages, outdir, force):
     output_text = render(document, highlight, languages)
 
     base_dir = os.path.dirname(coredocs.__file__)
-    static_dir = os.path.join(base_dir, 'static', theme)
+    static_dir = os.path.join(base_dir, 'themes', theme, 'static')
 
     click.echo("Building documentation into directory '%s'." % outdir)
     if os.path.exists(outdir) and force:
