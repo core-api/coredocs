@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% if page_description %}<meta name="description" content="{{ page_description }}">{% endif %}
+        {% if site_author %}<meta name="author" content="{{ site_author }}">{% endif %}
+        {% if canonical_url %}<link rel="canonical" href="{{ canonical_url }}">{% endif %}
+        {% if favicon %}<link rel="shortcut icon" href="{{ base_url }}/{{ favicon }}">
+        {% else %}<link rel="shortcut icon" href="{{ base_url }}/img/favicon.ico">{% endif %}
+
+	<title>{{ document.title }}</title>
+
+        <link href="{{ static('css/bootstrap-custom.min.css') }}" rel="stylesheet">
+        <link href="{{ static('css/font-awesome-4.0.3.css') }}" rel="stylesheet">
+        <link href="{{ static('css/base.css') }}" rel="stylesheet">
+        <style>{{ code_style }}</style>
+        <style>
+        .highlight {background-color: #f7f7f9}
+        .coredocs-link {border-top: 1px solid lightgrey; margin-top: 20px}
+        .coredocs-section {border-top: 2px solid lightgrey; margin-top: 20px; padding-top: 20px}
+        .navbar-brand {margin-left: 0px !important}
+        </style>
+
+    </head>
+
+    <body>
+
+        {% include "nav.html" %}
+
+        <div class="container">
+                <div class="col-md-3">{% include "toc.html" %}</div>
+                <div class="col-md-9" role="main">{% include "document.html" %}</div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>API Documentation built with <a href="#">Core Docs</a>.</p>
+        </footer>
+
+        <script src="{{ static('js/jquery-1.10.2.min.js') }}"></script>
+        <script src="{{ static('js/bootstrap-3.0.3.min.js') }}"></script>
+        <script>
+        $('body').scrollspy({ target: '#toc' })
+        </script>
+    </body>
+</html>
+{% if current_page and current_page.is_homepage %}
+<!--
+MkDocs version : {{ mkdocs_version }}
+Build Date UTC : {{ build_date_utc }}
+-->
+{% endif %}
