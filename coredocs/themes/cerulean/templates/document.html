@@ -1,6 +1,10 @@
-<h1 id="document-title">{{ document.title }}</h1>
-
-<p>{{ render_markdown(document.description) }}</p>
+<div class="row">
+    <div class="col-md-6">
+        <h1 id="document-title">{{ document.title }}</h1>
+        <p>{{ render_markdown(document.description) }}</p>
+    </div>
+    <div class="col-md-6"></div>
+</div>
 
 {% for section_key, section in get_sections(document) %}
 {% include "section.html" %}

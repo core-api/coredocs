@@ -276,3 +276,12 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
 pre.highlight code {
     white-space: pre;
 }
+
+
+/* @group Code Samples */
+
+.code-samples {
+    padding-top: 20px;
+}
+
+/* @end Code Samples */
