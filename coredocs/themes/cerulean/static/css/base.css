@@ -171,13 +171,14 @@ footer {
         margin-bottom: 0;
     }
 }
-@media (min-width: 1200px) {
-    /* Widen the fixed sidebar again */
-    .bs-sidebar.affix-bottom,
-    .bs-sidebar.affix {
-        width: 263px;
-    }
-}
+
+// @media (min-width: 1200px) {
+//     /* Widen the fixed sidebar again */
+//     .bs-sidebar.affix-bottom,
+//     .bs-sidebar.affix {
+//         width: 263px;
+//     }
+// }
 
 .headerlink {
     font-family: FontAwesome;

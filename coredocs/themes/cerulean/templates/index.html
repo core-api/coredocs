@@ -32,9 +32,9 @@
 
         {% include "nav.html" %}
 
-        <div class="container">
-                <div class="col-md-3">{% include "toc.html" %}</div>
-                <div class="col-md-9" role="main">{% include "document.html" %}</div>
+        <div class="container-fluid">
+                <div class="col-md-2">{% include "toc.html" %}</div>
+                <div class="col-md-10" role="main">{% include "document.html" %}</div>
         </div>
 
         <footer class="col-md-12">
@@ -46,6 +46,22 @@
         <script src="{{ static('js/bootstrap-3.0.3.min.js') }}"></script>
         <script>
             $('body').scrollspy({ target: '#toc' })
+
+            // Language Control
+            $('.language-control button').click(function () {
+                var button = $(this)
+                var language = button.data("language")
+
+                var languageControls = $('.language-control .btn')
+                languageControls.not('[data-language="' + language +'"]').removeClass("btn-primary").addClass("btn-default")
+                languageControls.filter('[data-language="' + language +'"]').removeClass("btn-default").addClass("btn-primary")
+
+                var codeBlocks = $('pre.highlight')
+                codeBlocks.not('[data-language="' + language +'"]').addClass("hide")
+                codeBlocks.filter('[data-language="' + language +'"]').removeClass("hide")
+            })
+
+            // API Explorer
 
             $('form').submit(function(event) {
                 event.preventDefault();
@@ -60,11 +76,16 @@
                     params[id] = value;
                 });
 
-                console.log(doc);
-                console.log(key);
-                console.log(params);
-
-                client.action(doc, key, params)
+                client.action(doc, key, params).then(function (data) {
+                    var response = JSON.stringify(data, null, 2);
+                    form.find(".response-data").removeClass("hide")
+                    form.find(".response-data").text(response)
+                    form.find(".response-error").addClass("hide")
+                }).catch(function (error) {
+                    form.find(".response-error").removeClass("hide")
+                    form.find(".response-error").text(error)
+                    form.find(".response-data").addClass("hide")
+                })
             });
         </script>
     </body>
