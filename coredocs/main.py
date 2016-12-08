@@ -22,6 +22,9 @@ def get_fields(location, link):
 
 
 def render(doc, highlight=None, langs=None, theme=None, static=None):
+    codec = coreapi.codecs.CoreJSONCodec()
+    schema = codec.encode(doc)
+
     if static is None:
         static = lambda path: path
 
@@ -45,6 +48,7 @@ def render(doc, highlight=None, langs=None, theme=None, static=None):
         static=static,
         render_markdown=render_markdown,
         document=doc,
+        schema=schema,
         get_sections=get_sections,
         get_links=get_links,
         get_fields=get_fields,

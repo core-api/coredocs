@@ -4,13 +4,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% if page_description %}<meta name="description" content="{{ page_description }}">{% endif %}
-        {% if site_author %}<meta name="author" content="{{ site_author }}">{% endif %}
-        {% if canonical_url %}<link rel="canonical" href="{{ canonical_url }}">{% endif %}
-        {% if favicon %}<link rel="shortcut icon" href="{{ base_url }}/{{ favicon }}">
-        {% else %}<link rel="shortcut icon" href="{{ base_url }}/img/favicon.ico">{% endif %}
 
-	<title>{{ document.title }}</title>
+	    <title>{{ document.title }}</title>
 
         <link href="{{ static('css/bootstrap-custom.min.css') }}" rel="stylesheet">
         <link href="{{ static('css/font-awesome-4.0.3.css') }}" rel="stylesheet">
@@ -22,7 +17,15 @@
         .coredocs-section {border-top: 2px solid lightgrey; margin-top: 20px; padding-top: 20px}
         .navbar-brand {margin-left: 0px !important}
         </style>
-
+        <script src="https://unpkg.com/coreapi@0.0.10/dist/coreapi.js"></script>
+        <script>
+            var coreapi = window.coreapi
+            var codec = new coreapi.codecs.CoreJSONCodec()
+            var schema = {{ schema }}
+            var doc = codec.decode(schema, {preloaded: true})
+            var client = new coreapi.Client()
+            console.log(doc)
+        </script>
     </head>
 
     <body>
