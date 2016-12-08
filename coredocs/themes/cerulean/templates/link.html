@@ -108,28 +108,27 @@
     </div>
 
     <div class="modal-body">
-        <form class="form-horizontal" data-key='["{{ section_key }}", "{{ link_key }}"]'>
-          {% for field in link.fields %}
-          <div class="form-group">
-            <label for="{{ field.name }}" class="col-sm-3 control-label">{{ field.name }}</label>
-            <div class="col-sm-9">
+        <form data-key='["{{ section_key }}", "{{ link_key }}"]'>
+            {% for field in link.fields %}
+            <div class="form-group">
+                <label for="{{ field.name }}" class="control-label">{{ field.name }} <span class="text-danger">{% if field.required %}*{% endif %}</span></label>
                 <input
-                    type="text
                     id="{{ field.name }}"
+                    type="text"
                     class="form-control"
                     data-name="{{ field.name }}"
                     {% if field.required %}required{% endif %}>
+                {% if field.description %}<p class="help-block">{{ field.description }}</p>{% endif %}
             </div>
-          </div>
-          {% endfor %}
+            {% endfor %}
 
-          <!-- <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-          </div> -->
+            <div id="response">
+                <pre class="response-data hide"></pre>
+                <div class="response-error alert alert-danger hide"></div>
+            </div>
 
             <div class="text-right">
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
     </div>

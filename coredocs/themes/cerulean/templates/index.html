@@ -60,11 +60,16 @@
                     params[id] = value;
                 });
 
-                console.log(doc);
-                console.log(key);
-                console.log(params);
-
-                client.action(doc, key, params)
+                client.action(doc, key, params).then(function (data) {
+                    var response = JSON.stringify(data, null, 2);
+                    form.find(".response-data").removeClass("hide")
+                    form.find(".response-data").text(response)
+                    form.find(".response-error").addClass("hide")
+                }).catch(function (error) {
+                    form.find(".response-error").removeClass("hide")
+                    form.find(".response-error").text(error)
+                    form.find(".response-data").addClass("hide")
+                })
             });
         </script>
     </body>
