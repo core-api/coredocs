@@ -83,12 +83,6 @@
 </div>
 
     <div class="col-md-6 code-samples">
-        <div class="btn-group btn-group-xs language-control" role="group" aria-label="Language Control">
-          <button type="button" class="btn btn-primary" data-language="shell">shell</button>
-          <button type="button" class="btn btn-default" data-language="javascript">javascript</button>
-          <button type="button" class="btn btn-default" data-language="python">python</button>
-        </div>
-
         {% if 'shell' in langs %}{% include "languages/shell.html" %}{% endif %}
         {% if 'python' in langs %}{% include "languages/python.html" %}{% endif %}
         {% if 'javascript' in langs %}{% include "languages/javascript.html" %}{% endif %}

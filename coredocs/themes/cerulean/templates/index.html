@@ -15,7 +15,11 @@
         .highlight {background-color: #f7f7f9}
         .coredocs-link {border-top: 1px solid lightgrey; margin-top: 20px}
         .coredocs-section {border-top: 2px solid lightgrey; margin-top: 20px; padding-top: 20px}
-        .navbar-brand {margin-left: 0px !important}
+        @media (min-width: 768px) {
+            .navbar-nav.navbar-right:last-child {
+                margin-right: 0 !important;
+            }
+        }
         </style>
         <script src="https://unpkg.com/coreapi@0.0.10/dist/coreapi.js"></script>
         <script>
@@ -48,13 +52,16 @@
             $('body').scrollspy({ target: '#toc' })
 
             // Language Control
-            $('.language-control button').click(function () {
+            $('.language-control li a').click(function (event) {
+                event.preventDefault();
                 var button = $(this)
                 var language = button.data("language")
 
-                var languageControls = $('.language-control .btn')
-                languageControls.not('[data-language="' + language +'"]').removeClass("btn-primary").addClass("btn-default")
-                languageControls.filter('[data-language="' + language +'"]').removeClass("btn-default").addClass("btn-primary")
+                var languageControls = $('.language-control li a')
+                languageControls.not('[data-language="' + language +'"]').parent().removeClass("active")
+                languageControls.filter('[data-language="' + language +'"]').parent().addClass("active")
+
+                button.closest("li.dropdown").find('.dropdown-toggle span').text(language)
 
                 var codeBlocks = $('pre.highlight')
                 codeBlocks.not('[data-language="' + language +'"]').addClass("hide")
