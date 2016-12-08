@@ -22,7 +22,7 @@
             var coreapi = window.coreapi
             var codec = new coreapi.codecs.CoreJSONCodec()
             var schema = {{ schema }}
-            var doc = codec.decode(schema, {preloaded: true})
+            var doc = codec.decode(schema, {url: 'http://petstore.swagger.io/', preloaded: true})
             var client = new coreapi.Client()
             console.log(doc)
         </script>
@@ -45,7 +45,27 @@
         <script src="{{ static('js/jquery-1.10.2.min.js') }}"></script>
         <script src="{{ static('js/bootstrap-3.0.3.min.js') }}"></script>
         <script>
-        $('body').scrollspy({ target: '#toc' })
+            $('body').scrollspy({ target: '#toc' })
+
+            $('form').submit(function(event) {
+                event.preventDefault();
+
+                var form = $(this).closest("form");
+                var key = form.data("key");
+                var params = {};
+
+                form.find("input").each(function( index ) {
+                    var id = $(this).data("name");
+                    var value = $( this ).val();
+                    params[id] = value;
+                });
+
+                console.log(doc);
+                console.log(key);
+                console.log(params);
+
+                client.action(doc, key, params)
+            });
         </script>
     </body>
 </html>
