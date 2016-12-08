@@ -15,4 +15,4 @@ def get_sections(node):
 
 
 def get_links(node):
-    return sorted(node.links.iteritems(), key=link_sort)
+    return sorted(node.links.items(), key=link_sort)
