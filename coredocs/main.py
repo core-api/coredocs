@@ -23,7 +23,7 @@ def get_fields(location, link):
 
 def render(doc, highlight=None, langs=None, theme=None, static=None):
     codec = coreapi.codecs.CoreJSONCodec()
-    schema = codec.encode(doc)
+    schema = codec.encode(doc).decode("utf-8")
 
     if static is None:
         static = lambda path: path

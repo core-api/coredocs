@@ -11,7 +11,7 @@ def link_sort(link_item):
 
 
 def get_sections(node):
-    return sorted(node.data.iteritems(), key=lambda item: item[0])
+    return sorted(node.data.items(), key=lambda item: item[0])
 
 
 def get_links(node):
