@@ -1,0 +1,11 @@
+<h1 id="document-title">{{ document.title }}</h1>
+
+<p>{{ render_markdown(document.description) }}</p>
+
+{% for section_key, section in get_sections(document) %}
+{% include "section.html" %}
+{% endfor %}
+
+{% for link_key, link in get_links(document) %}
+{% include "link.html" %}
+{% endfor %}

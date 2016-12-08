@@ -1,0 +1,98 @@
+<div class="coredocs-link">
+
+<!--<div class="col-md-6 docs-content">-->
+<h2 id="{{ link_key }}">{{ link.title or link_key }}</h2>
+
+    <p>
+        <span class="label label-primary">{{ link.action|upper }}</span> <code>{{ link.url }}</code>
+    </p>
+
+    <p>{{ render_markdown(link.description) }}</p>
+
+{% if get_fields('path', link ) %}
+    <h4>Path Parameters</h4>
+    <p>The following parameters should be included in the URL path.</p>
+    <table class="parameters table table-bordered table-striped">
+        <thead>
+            <tr><th>Parameter</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            {% for field in get_fields('path', link ) %}
+            <tr><td class="parameter-name"><code>{{ field.name }}</code>{% if field.required %} <span class="label label-warning">required</span>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% if get_fields('query', link ) %}
+    <h4>Query Parameters</h4>
+    <p>The following parameters should be included as part of a URL query string.</p>
+    <table class="parameters table table-bordered table-striped">
+        <thead>
+            <tr><th>Parameter</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            {% for field in get_fields('query', link ) %}
+            <tr><td class="parameter-name"><code>{{ field.name }}</code>{% if field.required %} <span class="label label-warning">required</span>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% if get_fields('header', link ) %}
+    <h4>Header Parameters</h4>
+    <p>The following parameters should be included as HTTP headers.</p>
+    <table class="parameters table table-bordered table-striped">
+        <thead>
+            <tr><th>Parameter</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            {% for field in get_fields('header', link ) %}
+            <tr><td class="parameter-name"><code>{{ field.name }}</code>{% if field.required %} <span class="label label-warning">required</span>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% if get_fields('body', link ) %}
+    <h4>Request Body</h4>
+    <p>The request body should be <code>"{{ link.encoding }}"</code> encoded, and should contain a single item.</p>
+    <table class="parameters table table-bordered table-striped">
+        <thead>
+            <tr><th>Parameter</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            {% for field in get_fields('body', link ) %}
+            <tr><td class="parameter-name"><code>{{ field.name }}</code>{% if field.required %} <span class="label label-warning">required</span>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% elif get_fields('form', link ) %}
+    <h4>Request Body</h4>
+    <p>The request body should be a <code>"{{ link.encoding }}"</code> encoded object, containing the following&nbsp;items.</p>
+    <table class="parameters table table-bordered table-striped">
+        <thead>
+            <tr><th>Parameter</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+            {% for field in get_fields('form', link ) %}
+            <tr><td class="parameter-name"><code>{{ field.name }}</code>{% if field.required %} <span class="label label-warning">required</span>{% endif %}</td><td>{% if field.description %}{{ field.description }}{% endif %}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+<!--</div>
+<div class="col-md-6 code-samples">-->
+
+<div style="margin-bottom: 5px">
+<div class="btn-group btn-group-xs" role="group" aria-label="..." style="float: right">
+  <button type="button" class="btn btn-primary">shell</button>
+  <button type="button" class="btn btn-default">javscript</button>
+  <button type="button" class="btn btn-default">python</button>
+</div>
+&nbsp;
+</div>
+
+{% if 'shell' in langs %}{% include "languages/shell.html" %}{% endif %}
+<!--{% if 'python' in langs %}{% include "languages/python.html" %}{% endif %}
+{% if 'javascript' in langs %}{% include "languages/javascript.html" %}{% endif %}-->
+<!--</div>-->
+</div>

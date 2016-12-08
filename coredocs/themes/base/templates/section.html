@@ -1,0 +1,5 @@
+<h1 id="{{ section_key }}" class="coredocs-section">{{ section_key }}</h1>
+
+{% for link_key, link in get_links(section) %}
+{% include "link.html" %}
+{% endfor %}

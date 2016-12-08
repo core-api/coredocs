@@ -12,7 +12,7 @@ import sys
 import pkg_resources
 
 
-THEME_CHOICES = ['slate']
+THEME_CHOICES = ['slate', 'cerulean']
 PYGMENTS_STYLES = get_all_styles()
 DEFAULT_LANGS = ['shell', 'javascript', 'python']
 
@@ -21,7 +21,7 @@ def get_fields(location, link):
     return [field for field in link.fields if field.location == location]
 
 
-def render(doc, highlight=None, langs=None, static=None):
+def render(doc, highlight=None, langs=None, theme=None, static=None):
     if static is None:
         static = lambda path: path
 
@@ -30,11 +30,17 @@ def render(doc, highlight=None, langs=None, static=None):
 
     schema_format = determine_format(doc)
 
+    base_templates = os.path.join('themes', 'base', 'templates')
+    theme_templates = os.path.join('themes', theme, 'templates')
+
     env = jinja2.Environment(
-        loader=jinja2.PackageLoader('coredocs', 'templates'),
+        loader=jinja2.ChoiceLoader([
+            jinja2.PackageLoader('coredocs', theme_templates),
+            jinja2.PackageLoader('coredocs', base_templates)
+        ]),
         extensions=['coredocs.highlighting.HighlightExtension']
     )
-    template = env.get_template('slate/index.html')
+    template = env.get_template('index.html')
     return template.render(
         static=static,
         render_markdown=render_markdown,
@@ -127,15 +133,15 @@ def build(url, format, theme, highlight, languages, outdir, force):
         click.echo(display(exc.error))
         sys.exit(1)
 
-    output_text = render(document, highlight, languages)
+    output_text = render(document, highlight, languages, theme=theme)
 
     base_dir = os.path.dirname(coredocs.__file__)
-    static_dir = os.path.join(base_dir, 'static', theme)
+    static_dir = os.path.join(base_dir, 'themes', theme, 'static')
 
     click.echo("Building documentation into directory '%s'." % outdir)
     if os.path.exists(outdir) and force:
         shutil.rmtree(outdir)
-    shutil.copytree(static_dir, os.path.join(outdir, 'slate'))
+    shutil.copytree(static_dir, os.path.join(outdir))
 
     output_file = os.path.join(outdir, 'index.html')
     with open(output_file, 'w') as output_file:
