@@ -1,6 +1,6 @@
-<div class="coredocs-link">
+<div class="row coredocs-link">
 
-<!--<div class="col-md-6 docs-content">-->
+<div class="col-md-6 docs-content">
 <button class="btn btn-success" style="float: right; margin-top: 20px" data-toggle="modal" data-target="#{{ link_key }}_modal">Interact</button>
 
 <h2 id="{{ link_key }}">{{ link.title or link_key }}</h2>
@@ -80,22 +80,19 @@
     </table>
 {% endif %}
 
-<!--</div>
-<div class="col-md-6 code-samples">-->
-
-<div style="margin-bottom: 5px">
-<div class="btn-group btn-group-xs" role="group" aria-label="..." style="float: right">
-  <button type="button" class="btn btn-primary">shell</button>
-  <button type="button" class="btn btn-default">javascript</button>
-  <button type="button" class="btn btn-default">python</button>
-</div>
-&nbsp;
 </div>
 
-{% if 'shell' in langs %}{% include "languages/shell.html" %}{% endif %}
-<!--{% if 'python' in langs %}{% include "languages/python.html" %}{% endif %}
-{% if 'javascript' in langs %}{% include "languages/javascript.html" %}{% endif %}-->
-<!--</div>-->
+    <div class="col-md-6 code-samples">
+        <div class="btn-group btn-group-xs language-control" role="group" aria-label="Language Control">
+          <button type="button" class="btn btn-primary" data-language="shell">shell</button>
+          <button type="button" class="btn btn-default" data-language="javascript">javascript</button>
+          <button type="button" class="btn btn-default" data-language="python">python</button>
+        </div>
+
+        {% if 'shell' in langs %}{% include "languages/shell.html" %}{% endif %}
+        {% if 'python' in langs %}{% include "languages/python.html" %}{% endif %}
+        {% if 'javascript' in langs %}{% include "languages/javascript.html" %}{% endif %}
+    </div>
 </div>
 
 <!-- Modal -->
