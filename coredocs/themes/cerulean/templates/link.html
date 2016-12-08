@@ -1,8 +1,9 @@
 <div class="coredocs-link">
 
 <!--<div class="col-md-6 docs-content">-->
-<h2 id="{{ link_key }}">{{ link.title or link_key }}</h2>
+<button class="btn btn-success" style="float: right; margin-top: 20px">Interact</button>
 
+<h2 id="{{ link_key }}">{{ link.title or link_key }}</h2>
     <p>
         <span class="label label-primary">{{ link.action|upper }}</span> <code>{{ link.url }}</code>
     </p>
