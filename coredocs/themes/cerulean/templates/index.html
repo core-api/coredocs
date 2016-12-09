@@ -15,14 +15,18 @@
         .highlight {background-color: #f7f7f9}
         .coredocs-link {border-top: 1px solid lightgrey; margin-top: 20px}
         .coredocs-section {border-top: 2px solid lightgrey; margin-top: 20px; padding-top: 20px}
-        .navbar-brand {margin-left: 0px !important}
+        @media (min-width: 768px) {
+            .navbar-nav.navbar-right:last-child {
+                margin-right: 0 !important;
+            }
+        }
         </style>
         <script src="https://unpkg.com/coreapi@0.0.10/dist/coreapi.js"></script>
         <script>
             var coreapi = window.coreapi
             var codec = new coreapi.codecs.CoreJSONCodec()
             var schema = {{ schema }}
-            var doc = codec.decode(schema, {preloaded: true})
+            var doc = codec.decode(schema, {url: 'http://petstore.swagger.io/', preloaded: true})
             var client = new coreapi.Client()
             console.log(doc)
         </script>
@@ -32,9 +36,9 @@
 
         {% include "nav.html" %}
 
-        <div class="container">
-                <div class="col-md-3">{% include "toc.html" %}</div>
-                <div class="col-md-9" role="main">{% include "document.html" %}</div>
+        <div class="container-fluid">
+                <div class="col-md-2">{% include "toc.html" %}</div>
+                <div class="col-md-10" role="main">{% include "document.html" %}</div>
         </div>
 
         <footer class="col-md-12">
@@ -45,7 +49,51 @@
         <script src="{{ static('js/jquery-1.10.2.min.js') }}"></script>
         <script src="{{ static('js/bootstrap-3.0.3.min.js') }}"></script>
         <script>
-        $('body').scrollspy({ target: '#toc' })
+            $('body').scrollspy({ target: '#toc' })
+
+            // Language Control
+            $('.language-control li a').click(function (event) {
+                event.preventDefault();
+                var button = $(this)
+                var language = button.data("language")
+
+                var languageControls = $('.language-control li a')
+                languageControls.not('[data-language="' + language +'"]').parent().removeClass("active")
+                languageControls.filter('[data-language="' + language +'"]').parent().addClass("active")
+
+                button.closest("li.dropdown").find('.dropdown-toggle span').text(language)
+
+                var codeBlocks = $('pre.highlight')
+                codeBlocks.not('[data-language="' + language +'"]').addClass("hide")
+                codeBlocks.filter('[data-language="' + language +'"]').removeClass("hide")
+            })
+
+            // API Explorer
+
+            $('form').submit(function(event) {
+                event.preventDefault();
+
+                var form = $(this).closest("form");
+                var key = form.data("key");
+                var params = {};
+
+                form.find("input").each(function( index ) {
+                    var id = $(this).data("name");
+                    var value = $( this ).val();
+                    params[id] = value;
+                });
+
+                client.action(doc, key, params).then(function (data) {
+                    var response = JSON.stringify(data, null, 2);
+                    form.find(".response-data").removeClass("hide")
+                    form.find(".response-data").text(response)
+                    form.find(".response-error").addClass("hide")
+                }).catch(function (error) {
+                    form.find(".response-error").removeClass("hide")
+                    form.find(".response-error").text(error)
+                    form.find(".response-data").addClass("hide")
+                })
+            });
         </script>
     </body>
 </html>

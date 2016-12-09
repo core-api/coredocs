@@ -1,7 +1,7 @@
-<div class="coredocs-link">
+<div class="row coredocs-link">
 
-<!--<div class="col-md-6 docs-content">-->
-<button class="btn btn-success" style="float: right; margin-top: 20px">Interact</button>
+<div class="col-md-6 docs-content">
+<button class="btn btn-success" style="float: right; margin-top: 20px" data-toggle="modal" data-target="#{{ link_key }}_modal">Interact</button>
 
 <h2 id="{{ link_key }}">{{ link.title or link_key }}</h2>
     <p>
@@ -80,20 +80,50 @@
     </table>
 {% endif %}
 
-<!--</div>
-<div class="col-md-6 code-samples">-->
-
-<div style="margin-bottom: 5px">
-<div class="btn-group btn-group-xs" role="group" aria-label="..." style="float: right">
-  <button type="button" class="btn btn-primary">shell</button>
-  <button type="button" class="btn btn-default">javscript</button>
-  <button type="button" class="btn btn-default">python</button>
-</div>
-&nbsp;
 </div>
 
-{% if 'shell' in langs %}{% include "languages/shell.html" %}{% endif %}
-<!--{% if 'python' in langs %}{% include "languages/python.html" %}{% endif %}
-{% if 'javascript' in langs %}{% include "languages/javascript.html" %}{% endif %}-->
-<!--</div>-->
+    <div class="col-md-6 code-samples">
+        {% if 'shell' in langs %}{% include "languages/shell.html" %}{% endif %}
+        {% if 'python' in langs %}{% include "languages/python.html" %}{% endif %}
+        {% if 'javascript' in langs %}{% include "languages/javascript.html" %}{% endif %}
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade api-modal" id="{{ link_key }}_modal" tabindex="-1" role="dialog" aria-labelledby="api explorer modal">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">{{ link.title or link_key }}</h4>
+    </div>
+
+    <div class="modal-body">
+        <form data-key='["{{ section_key }}", "{{ link_key }}"]'>
+            {% for field in link.fields %}
+            <div class="form-group">
+                <label for="{{ field.name }}" class="control-label">{{ field.name }} <span class="text-danger">{% if field.required %}*{% endif %}</span></label>
+                <input
+                    id="{{ field.name }}"
+                    type="text"
+                    class="form-control"
+                    data-name="{{ field.name }}"
+                    {% if field.required %}required{% endif %}>
+                {% if field.description %}<p class="help-block">{{ field.description }}</p>{% endif %}
+            </div>
+            {% endfor %}
+
+            <div id="response">
+                <pre class="response-data hide"></pre>
+                <div class="response-error alert alert-danger hide"></div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+  </div>
+</div>
 </div>

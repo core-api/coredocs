@@ -171,13 +171,14 @@ footer {
         margin-bottom: 0;
     }
 }
-@media (min-width: 1200px) {
-    /* Widen the fixed sidebar again */
-    .bs-sidebar.affix-bottom,
-    .bs-sidebar.affix {
-        width: 263px;
-    }
-}
+
+// @media (min-width: 1200px) {
+//     /* Widen the fixed sidebar again */
+//     .bs-sidebar.affix-bottom,
+//     .bs-sidebar.affix {
+//         width: 263px;
+//     }
+// }
 
 .headerlink {
     font-family: FontAwesome;
@@ -275,3 +276,12 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
 pre.highlight code {
     white-space: pre;
 }
+
+
+/* @group Code Samples */
+
+.code-samples {
+    padding-top: 20px;
+}
+
+/* @end Code Samples */
