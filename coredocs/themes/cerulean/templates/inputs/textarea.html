@@ -1,0 +1,13 @@
+<div class="form-group">
+    <label for="{{ field.name }}" class="control-label">
+        {{ field.title or field.name }}
+        {% if field.required %}<span class="text-danger">*</span>{% endif %}
+    </label>
+    <textarea
+        name="{{ field.name }}"
+        class="form-control"
+        data-type="{{ field.type }}"
+        data-location="{{ field.location }}"
+        {% if field.required %}required{% endif %}></textarea>
+    {% if field.description %}<p class="help-block">{{ field.description }}</p>{% endif %}
+</div>

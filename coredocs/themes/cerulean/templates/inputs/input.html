@@ -1,0 +1,15 @@
+<div class="form-group">
+    <label for="{{ field.name }}" class="control-label">
+        {{ field.title or field.name }}
+        {% if field.required %}<span class="text-danger">*</span>{% endif %}
+    </label>
+    <input
+        name="{{ field.name }}"
+        type="{{ field.input }}"
+        class="form-control"
+        data-type="{{ field.type }}"
+        data-location="{{ field.location }}"
+        {% if field.type == "integer" %}step=1{% endif %}
+        {% if field.required %}required{% endif %}>
+    {% if field.description %}<p class="help-block">{{ field.description }}</p>{% endif %}
+</div>

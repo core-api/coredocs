@@ -1,0 +1,16 @@
+<div class="form-group">
+    <label>
+      {{ field.title or field.name }}
+    </label>
+
+  <select class="form-control" name="{{ field.name }}" data-type="{{ field.type }}" data-location="{{ field.location }}">
+    <option></option>
+    {% for value, display_text in field.choices.items() %}
+        <option value="{{ value }}">{{ display_text }}</option>
+    {% endfor %}
+  </select>
+
+  {% if field.description %}
+    <span class="help-block">{{ field.description }}</span>
+  {% endif %}
+</div>

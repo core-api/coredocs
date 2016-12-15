@@ -8,7 +8,7 @@
             <a href="#{{ section_key }}">{{ section_key }}</a>
             <ul class="nav">
                 {% for link_key, link in get_links(section) %}
-                <li><a href="#{{ link_key }}">{{ link.title or link_key }}</a></li>
+                <li><a href="#{{ section_key }}-{{ link_key }}">{{ link.title or link_key }}</a></li>
                 {% endfor %}
             </ul>
         </li>

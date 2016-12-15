@@ -3,7 +3,7 @@
 <div class="col-md-6 docs-content">
 <button class="btn btn-success" style="float: right; margin-top: 20px" data-toggle="modal" data-target="#{{ link_key }}_modal">Interact</button>
 
-<h2 id="{{ link_key }}">{{ link.title or link_key }}</h2>
+<h2 id="{{ section_key }}-{{ link_key }}">{{ link.title or link_key }}</h2>
     <p>
         <span class="label label-primary">{{ link.action|upper }}</span> <code>{{ link.url }}</code>
     </p>
@@ -101,16 +101,15 @@
     <div class="modal-body">
         <form data-key='["{{ section_key }}", "{{ link_key }}"]'>
             {% for field in link.fields %}
-            <div class="form-group">
-                <label for="{{ field.name }}" class="control-label">{{ field.name }} <span class="text-danger">{% if field.required %}*{% endif %}</span></label>
-                <input
-                    id="{{ field.name }}"
-                    type="text"
-                    class="form-control"
-                    data-name="{{ field.name }}"
-                    {% if field.required %}required{% endif %}>
-                {% if field.description %}<p class="help-block">{{ field.description }}</p>{% endif %}
-            </div>
+            {% if field.input == "textarea" %}
+                {% include "inputs/textarea.html" %}
+            {% elif field.input == "select" %}
+                {% include "inputs/select.html" %}
+            {% elif field.input == "checkbox" %}
+                {% include "inputs/checkbox.html" %}
+            {% else %}
+                {% include "inputs/input.html" %}
+            {% endif %}
             {% endfor %}
 
             <div id="response">

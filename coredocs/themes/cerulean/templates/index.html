@@ -15,18 +15,19 @@
         .highlight {background-color: #f7f7f9}
         .coredocs-link {border-top: 1px solid lightgrey; margin-top: 20px}
         .coredocs-section {border-top: 2px solid lightgrey; margin-top: 20px; padding-top: 20px}
+        .checkbox label.control-label {font-weight: bold}
         @media (min-width: 768px) {
             .navbar-nav.navbar-right:last-child {
                 margin-right: 0 !important;
             }
         }
         </style>
-        <script src="https://unpkg.com/coreapi@0.0.10/dist/coreapi.js"></script>
+        <script src="https://unpkg.com/coreapi@0.0.12/dist/coreapi.js"></script>
         <script>
             var coreapi = window.coreapi
             var codec = new coreapi.codecs.CoreJSONCodec()
             var schema = {{ schema }}
-            var doc = codec.decode(schema, {url: 'http://petstore.swagger.io/', preloaded: true})
+            var doc = codec.decode(schema, {preloaded: true})
             var client = new coreapi.Client()
             console.log(doc)
         </script>
@@ -73,15 +74,41 @@
             $('form').submit(function(event) {
                 event.preventDefault();
 
-                var form = $(this).closest("form");
-                var key = form.data("key");
+                const form = $(this).closest("form");
+                const key = form.data("key");
                 var params = {};
 
-                form.find("input").each(function( index ) {
-                    var id = $(this).data("name");
-                    var value = $( this ).val();
-                    params[id] = value;
-                });
+                const formData = new FormData(form.get()[0]);
+                for (var [paramKey, paramValue] of formData.entries()) {
+                    var elem = form.find("[name=" + paramKey + "]")
+                    var dataType = elem.data('type') || 'string'
+                    var dataLocation = elem.data('location')
+
+                    if (dataType === 'integer' && paramValue) {
+                        paramValue = parseInt(paramValue)
+                    } else if (dataType === 'number' && paramValue) {
+                        paramValue = parseFloat(paramValue)
+                    } else if (dataType === 'boolean' && paramValue) {
+                        paramValue = {
+                            'true': true,
+                            'false': false
+                        }[paramValue.toLowerCase()]
+                    }
+
+                    if (dataLocation === 'query' && !paramValue) {
+                        continue
+                    }
+                    params[paramKey] = paramValue
+                }
+
+                form.find(":checkbox").each(function( index ) {
+                    var name = $(this).attr("name");
+                    if (!params.hasOwnProperty(name)) {
+                        params[name] = false
+                    }
+                })
+
+                console.log(params)
 
                 client.action(doc, key, params).then(function (data) {
                     var response = JSON.stringify(data, null, 2);
