@@ -1,4 +1,4 @@
-<h2 id="{{ link_key }}">{{ link.title or link_key }}</h2>
+<h2 id="{{ section_key + '_' + link_key }}">{{ link.title or link_key }}</h2>
 
 {% if 'shell' in langs %}{% include "languages/shell.html" %}{% endif %}
 {% if 'python' in langs %}{% include "languages/python.html" %}{% endif %}
